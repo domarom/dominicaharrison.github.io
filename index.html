@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Alex Van Nynatten | Research Overview</title>
+
+    <style>
+      body {
+        font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+        color: #222;
+        background-color: #ffffff;
+      }
+
+      /* ====== HEADER ====== */
+      header {
+        background-color: #f8f9fa;
+        padding: 3rem 0;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .header-content {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .profile-img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 4px solid #e0e0e0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      }
+
+      header h1 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      header p {
+        color: #555;
+        font-size: 1.1rem;
+        line-height: 1.6;
+      }
+
+      /* ====== Profile Links ====== */
+      .profile-links {
+        text-align: center;
+        margin: 40px 0 60px 0;
+      }
+
+      .profile-links a {
+        display: inline-block;
+        margin: 0 15px;
+        color: #007bff;
+        font-size: 1.1rem;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .profile-links a:hover {
+        color: #0056b3;
+        text-decoration: underline;
+      }
+
+      /* ====== Research Panels ====== */
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .research-section {
+        padding: 0 0 60px 0;
+      }
+
+      .research-panel {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        margin-bottom: 50px;
+        padding: 40px 20px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease;
+      }
+
+      .research-panel.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Alternating gradient backgrounds */
+      .research-panel:nth-child(odd) {
+        background: linear-gradient(135deg, #f9fafb 0%, #f1f3f5 100%);
+      }
+
+      .research-panel:nth-child(even) {
+        background: linear-gradient(135deg, #ffffff 0%, #f7f8fa 100%);
+      }
+
+      .research-panel .row {
+        align-items: center;
+      }
+
+      /* Two stacked images */
+      .image-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+      }
+
+      .image-stack img {
+        width: 100%;
+        max-width: 280px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 3px solid #e0e0e0;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        transition: transform 0.25s ease;
+      }
+
+      .image-stack img:hover {
+        transform: scale(1.04);
+      }
+
+      .research-text {
+        padding: 20px 30px;
+      }
+
+      /* ====== Fixed heading underline alignment ====== */
+      .research-text h2 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        position: relative;
+        padding-bottom: 12px;
+      }
+
+      .research-text h2::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 60px;
+        height: 4px;
+        background-color: #007bff;
+        border-radius: 2px;
+      }
+
+      .research-text.text-end h2::after {
+        left: auto;
+        right: 0;
+      }
+
+      .research-text p {
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      /* ====== Image Galleries ====== */
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        justify-items: center;
+        padding: 20px;
+      }
+
+      .gallery-item {
+        position: relative;
+        width: 100%;
+        max-width: 260px;
+        overflow: hidden;
+        border-radius: 10px;
+        border: 3px solid #e0e0e0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        transition: transform 0.3s ease;
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        display: block;
+        border-radius: 8px;
+        filter: grayscale(100%);
+        transition: filter 0.4s ease, transform 0.3s ease;
+      }
+
+      .gallery-item:hover img {
+        filter: grayscale(0%);
+        transform: scale(1.03);
+      }
+
+      /* Overlay text at bottom */
+      .overlay-text {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        padding: 10px;
+        text-align: left;
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: var(--overlay-text-color, #ffffff);
+        background: rgba(0, 0, 0, 0.5);
+        transition: background 0.3s ease;
+      }
+
+      .gallery-item:hover .overlay-text {
+        background: rgba(0, 0, 0, 0.7);
+      }
+
+      :root {
+        --overlay-text-color: #ffffff;
+      }
+
+      footer {
+        text-align: center;
+        padding: 30px;
+        font-size: 0.9rem;
+        color: #777;
+        background-color: #f8f9fa;
+        margin-top: 40px;
+      }
+
+      @media (max-width: 768px) {
+        header {
+          text-align: center;
+        }
+        .profile-img {
+          margin-bottom: 1.5rem;
+        }
+        .research-panel {
+          text-align: center;
+        }
+        .image-stack img {
+          max-width: 240px;
+          height: 180px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- ====== HEADER ====== -->
+    <header>
+      <div class="container header-content">
+        <div class="row align-items-center">
+          <div class="col-md-4 text-center mb-3 mb-md-0">
+            <img src="assets/Cambridge_bay.jpg" alt="Alex Van Nynatten" class="profile-img">
+          </div>
+          <div class="col-md-8">
+            <h1>Alexander Van Nynatten</h1>
+            <p>
+              My name is Alexander Van Nynatten and I am a Postdoctoral Fellow in the Baum lab at the University of Victoria. I obtained my Ph.D. in the Chang/Lovejoy labs at the University of Toronto and have previously worked as a Mitacs postdoctoral fellow in the Mandrak Lab at the University of Toronto Scarborough. My research integrates functional genomics and molecular ecology to uncover how genetic and protein-level variation drives species’ adaptive responses to environmental change. Using systems ranging from Canadian freshwater fishes to Pacific corals, I link molecular function to ecological resilience across gradients of light, temperature, and human disturbance.
+            </p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ====== PROFILE LINKS ====== -->
+    <div class="profile-links">
+      <a href="https://github.com/alexvannynatten" target="_blank">GitHub</a>
+      <a href="https://scholar.google.com/citations?user=_p_qt40AAAAJ&hl=en" target="_blank">Google Scholar</a>
+      <a href="VanNynatten_202510_CV.pdf" target="_blank">CV (PDF)</a>
+    </div>
+
+    <!-- ====== MAIN CONTENT ====== -->
+    <main class="container research-section">
+
+      <!-- Panel 1 -->
+      <div class="research-panel">
+        <div class="row">
+          <div class="col-md-5 text-center">
+            <div class="image-stack">
+              <img src="assets/deepwater_rh1_fig2.png" alt="Adaptive Genomics 1">
+              <img src="assets/Deepwater_sculpin.jpg" alt="Adaptive Genomics 2">
+            </div>
+          </div>
+          <div class="col-md-7 research-text">
+            <h2>Functional Genomics</h2>
+            <p>
+              Ecosystem responses to environmental change depend on molecular processes that shape species’ resilience. My research integrates genomics with experimental assays to uncover how environmental differences drive protein evolution. Using visual pigment proteins in fishes as a model system, I have shown how specific amino acid substitutions modulate spectral sensitivity, tuning visual pigments to the spectral conditions of marine and freshwater habitats and maintaining functionally relevant intraspecific genetic variation along depth gradients in Canadian fishes. I have also expanded these approaches to assist with deep mutational scans of visual pigments and functional characterization of other proteins, including arrestins, sodium channels, and CRISPR-associated proteins providing mechanistic insight into the molecular basis of adaptation.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 2 -->
+      <div class="research-panel">
+        <div class="row flex-md-row-reverse">
+          <div class="col-md-5 text-center">
+            <div class="image-stack">
+              <img src="assets/Cape_eDNA_fig3.png" alt="Environmental DNA 1">
+              <img src="assets/eDNA_autosampler.jpg" alt="Environmental DNA 2">
+            </div>
+          </div>
+          <div class="col-md-7 research-text">
+            <h2>Molecular Ecology</h2>
+            <p>
+              Many analyses of molecular evolution are constrained by limited or incomplete distribution data. I have developed and applied DNA metabarcoding frameworks that link environmental variation to patterns of species and functional diversity across space and time. By integrating data on species presence, reproductive habits, and trophic interactions, my work has advanced how we monitor and interpret ecological change. I have applied these approaches to many systems from sensitive freshwater fish communities in Ontario and South Africa to decade-long surveys of coral reef ecosystems in the Central Pacific, providing new insight into biodiversity responses and resilience to environmental stress. By integrating this work with functional genomics, I am mapping the geographic distribution of adaptive genetic variation linked to protein function and expanding DNA metabarcoding methods to target functionally relevant genes for rapid eDNA surveys across diverse habitats and ecological gradients.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 3: Bioinformatics Resources -->
+      <div class="research-panel">
+        <div class="research-text text-end">
+          <h2>Bioinformatics Resources</h2>
+        </div>
+        <div class="gallery-grid">
+          <a href="https://github.com/alexvannynatten/measure-distances-in-Chimera" target="_blank" class="gallery-item">
+            <img src="assets/measuring_in_chimera.png" alt="Project 1">
+            <div class="overlay-text">Measuring distances in 3D protein structures</div>
+          </a>
+          <a href="https://github.com/alexvannynatten/Colour-crystal-structures" target="_blank" class="gallery-item">
+            <img src="assets/colouring_in_chimera.png" alt="Project 2">
+            <div class="overlay-text">Programatically colouring 3D protein structures</div>
+          </a>
+          <a href="https://datadryad.org/dataset/doi:10.5061/dryad.rn8pk0pg3" target="_blank" class="gallery-item">
+            <img src="assets/larval_fish_DNA.png" alt="Project 3">
+            <div class="overlay-text">Ichthyoplankton DNA metabarcoding pipeline</div>
+          </a>
+          <a href="https://github.com/alexvannynatten/Sample_map_R" target="_blank" class="gallery-item">
+            <img src="assets/map_drawing.png" alt="Project 4">
+            <div class="overlay-text">Drawing maps of eDNA sampling locations</div>
+          </a>
+          <a href="https://github.com/alexvannynatten/201904-Data-visualization-workshop" target="_blank" class="gallery-item">
+            <img src="assets/dataviz_workshop.png" alt="Project 5">
+            <div class="overlay-text">Data visualization workshop</div>
+          </a>
+          <a href="https://github.com/alexvannynatten/Downwelling-light-R-plot" target="_blank" class="gallery-item">
+            <img src="assets/downwelling_light.png" alt="Project 6">
+            <div class="overlay-text">Downwelling light across underwater environments</div>
+          </a>
+          <a href="https://github.com/alexvannynatten/Predator_seq_removal" target="_blank" class="gallery-item">
+            <img src="assets/scDNA_Sanger.png" alt="Project 7">
+            <div class="overlay-text">Removing predator DNA from Sanger sequences</div>
+          </a>
+          <a href="https://github.com/alexvannynatten/competitive-coral-symbiont-recovery" target="_blank" class="gallery-item">
+            <img src="assets/coral_metabarcoding.png" alt="Project 8">
+            <div class="overlay-text">Coral symbiont DNA metabarcoding pipeline</div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Panel 4: Art and Press -->
+      <div class="research-panel">
+        <div class="research-text">
+          <h2>Art and Press</h2>
+        </div>
+        <div class="gallery-grid" style="grid-template-columns: repeat(3, 1fr);">
+          <a href="https://academic.oup.com/mbe/issue/41/5" target="_blank" class="gallery-item">
+            <img src="assets/AVN_MBE_deepwaterRh1.png" alt="Art 1">
+            <div class="overlay-text">MBE cover art for deepwater rhodopsin paper</div>
+          </a>
+          <a href="https://academic.oup.com/mbe/issue/40/3" target="_blank" class="gallery-item">
+            <img src="assets/AVN_MBE_icefishRh1.png" alt="Art 2">
+            <div class="overlay-text">MBE cover art for icefish rhodopsin paper</div>
+          </a>
+          <a href="https://academic.oup.com/fisheries/article-abstract/45/6/303/7832994" target="_blank" class="gallery-item">
+            <img src="assets/Fisheries_infographic.png" alt="Art 3">
+            <div class="overlay-text">History of Canadian fisheries infographic</div>
+          </a>
+          <a href="https://canadiangeographic.ca/articles/unravelling-the-genetic-secrets-of-an-ice-age-relic/" target="_blank" class="gallery-item">
+            <img src="assets/Deepwater_sculpin.jpg" alt="Art 4">
+            <div class="overlay-text">Canadian Geographic: deepwater sculpin genome</div>
+          </a>
+          <a href="https://github.com/alexvannynatten/aa-alphabet" target="_blank" class="gallery-item">
+            <img src="assets/aa alphabet icon.png" alt="Art 5">
+            <div class="overlay-text">Amino acid font</div>
+          </a>
+          <div class="gallery-item" style="visibility:hidden;"></div> <!-- empty space -->
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ====== FOOTER ====== -->
+    <footer>
+      © 2025 Alexander Van Nynatten
+    </footer>
+
+    <!-- ====== SCRIPTS ====== -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const panels = document.querySelectorAll('.research-panel');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.2 });
+      panels.forEach(panel => observer.observe(panel));
+    </script>
+  </body>
+</html>
+
+
+
+
